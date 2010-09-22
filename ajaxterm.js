@@ -16,11 +16,17 @@ ajaxterm.Terminal_ctor=function(id,width,height) {
 	var div=document.getElementById(id);
 	var dstat=document.createElement('pre');
 	var sled=document.createElement('span');
-	var opt_get=document.createElement('a');
+// 	var opt_get=document.createElement('a');
 	var opt_color=document.createElement('a');
-	var opt_paste=document.createElement('a');
+// 	var opt_paste=document.createElement('a');
 	var sdebug=document.createElement('span');
 	var dterm=document.createElement('div');
+	var opt_0=document.createElement('a');
+	var opt_1=document.createElement('a');
+	var opt_2=document.createElement('a');
+	var opt_3=document.createElement('a');
+	var opt_4=document.createElement('a');
+
 
 	function debug(s) {
 		sdebug.innerHTML=s;
@@ -35,7 +41,13 @@ ajaxterm.Terminal_ctor=function(id,width,height) {
 		dstat.appendChild(opt);
 		dstat.appendChild(document.createTextNode(' '));
 	}
+        function screen(number) {
+            return function() {
+                alert(number);
+            }
+        }
 	function do_get(event) {
+                return;
 		opt_get.className=(opt_get.className=='off')?'on':'off';
 		debug('GET '+opt_get.className);
 	}
@@ -102,7 +114,7 @@ ajaxterm.Terminal_ctor=function(id,width,height) {
 				send+=keybuf.pop();
 			}
 			var query=query1+send;
-			if(opt_get.className=='on') {
+			if(false && opt_get.className=='on') {
 				r.open("GET","u?"+query,true);
 				if(ie) {
 					r.setRequestHeader("If-Modified-Since", "Sat, 1 Jan 2000 00:00:00 GMT");
@@ -140,7 +152,7 @@ ajaxterm.Terminal_ctor=function(id,width,height) {
 				}
 			}
 			error_timeout=window.setTimeout(error,5000);
-			if(opt_get.className=='on') {
+			if(false && opt_get.className=='on') {
 				r.send(null);
 			} else {
 				r.send(query);
@@ -155,11 +167,8 @@ ajaxterm.Terminal_ctor=function(id,width,height) {
 		}
 	}
 	function keypress(ev) {
+                return;
 		if (!ev) var ev=window.event;
-//		s="kp keyCode="+ev.keyCode+" which="+ev.which+" shiftKey="+ev.shiftKey+" ctrlKey="+ev.ctrlKey+" altKey="+ev.altKey;
-//		debug(s);
-//		return false;
-//		else { if (!ev.ctrlKey || ev.keyCode==17) { return; }
 		var kc;
 		var k="";
 		if (ev.keyCode)
@@ -252,20 +261,35 @@ ajaxterm.Terminal_ctor=function(id,width,height) {
 		dstat.appendChild(document.createTextNode(' '));
 		opt_add(opt_color,'Colors');
 		opt_color.className='on';
-		opt_add(opt_get,'GET');
-		opt_add(opt_paste,'Paste');
+// 		opt_add(opt_get,'GET');
+// 		opt_add(opt_paste,'Paste');
+		opt_add(opt_0,'0');
+		opt_add(opt_1,'1');
+		opt_add(opt_2,'2');
+		opt_add(opt_3,'3');
+		opt_add(opt_4,'4');
 		dstat.appendChild(sdebug);
 		dstat.className='stat';
 		div.appendChild(dstat);
 		div.appendChild(dterm);
 		if(opt_color.addEventListener) {
-			opt_get.addEventListener('click',do_get,true);
+// 			opt_get.addEventListener('click',do_get,true);
 			opt_color.addEventListener('click',do_color,true);
-			opt_paste.addEventListener('click',do_paste,true);
+// 			opt_paste.addEventListener('click',do_paste,true);
+			opt_0.addEventListener('click',screen(0),true);
+			opt_1.addEventListener('click',screen(1),true);
+			opt_2.addEventListener('click',screen(2),true);
+			opt_3.addEventListener('click',screen(3),true);
+			opt_4.addEventListener('click',screen(4),true);
 		} else {
-			opt_get.attachEvent("onclick", do_get);
+// 			opt_get.attachEvent("onclick", do_get);
 			opt_color.attachEvent("onclick", do_color);
-			opt_paste.attachEvent("onclick", do_paste);
+// 			opt_paste.attachEvent("onclick", do_paste);
+			opt_0.attachEvent("onclick", screen(0));
+			opt_1.attachEvent("onclick", screen(0));
+			opt_2.attachEvent("onclick", screen(2));
+			opt_3.attachEvent("onclick", screen(3));
+			opt_4.attachEvent("onclick", screen(4));
 		}
 		document.onkeypress=keypress;
 		document.onkeydown=keydown;

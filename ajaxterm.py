@@ -11,7 +11,7 @@ sys.path[0:0]=glob.glob('../../python')
 import qweb
 
 class Terminal:
-	def __init__(self,width=80,height=24):
+	def __init__(self,width=161,height=38):
 		self.width=width
 		self.height=height
 		self.init()
@@ -379,7 +379,7 @@ class Multiplex:
 			orig=getattr(self,name)
 			setattr(self,name,SynchronizedMethod(self.lock,orig))
 		self.thread.start()
-	def create(self,w=80,h=25):
+	def create(self,w=161,h=38):
 		pid,fd=pty.fork()
 		if pid==0:
 			try:
@@ -495,7 +495,7 @@ class AjaxTerm:
 				term=self.session[s]
 			else:
 				if not (w>2 and w<256 and h>2 and h<100):
-					w,h=80,25
+					w,h=161,38
 				term=self.session[s]=self.multi.create(w,h)
 			if k:
 				self.multi.proc_write(term,k)

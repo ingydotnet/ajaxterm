@@ -265,7 +265,7 @@ else{ /* end IE initialization, try to deal with real browsers now ;-) */
             * <li>3 == INTERACTIVE,</li>
             * <li>4 == COMPLETED</li></ul>
             */
-            XMLDocument.prototype.readyState = 0;
+            //try { XMLDocument.prototype.readyState = 0; } catch(e) {}
             /**
             * <p>Emulate IE's parseError attribute</p>
             */
